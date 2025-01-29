@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+    "Reading": "The process of looking at and understanding written words.",
+    "Painting": "The art of applying color to a surface to create a picture or design.",
+    "Gardening": "The activity of cultivating a garden.",
+    "Knitting": "A method of creating fabric by interlocking loops of yarn.",
+    "Photography": "The art or practice of taking and processing photographs.",
+    "Cooking": "The practice or skill of preparing food.",
+    "Bake": "To cook food by dry heat without direct exposure to a flame.",
+    "Singing": "The act of producing musical sounds with the voice.",
+    "Playing a musical instrument": "The act of performing music on an instrument.",
+    "Walking": "Going for a walk in nature or in the countryside.",
+    "Collecting stamps": "The hobby of collecting postage stamps.",
+    "Collecting coins": "The hobby of collecting coins.",
+    "Creating jewelry": "The craft of designing and making decorative accessories worn for personal adornment.",
+     "Scrapbooking": "The hobby of arranging photos and other memorabilia in an album.",
+     "Handworking": "The act of creating something by hand.",
+     "Blogging": "Writing or publishing content on a blog.",
+    "Learning new languages": "The process of acquiring knowledge of a new language.",
+    "Volunteering": "The act of offering services without being paid.",
+    "Playing board games": "The act of playing a game using a board and pieces.",
+    "Chess": "A board game played by two players with 16 pieces each.",
+     "Writing poetry": "The art or practice of writing poems.",
+    "Playing video games": "Playing games on a console or computer.",
+     "Meditation": "The practice of focusing the mind on a particular object, thought, or activity to achieve a mentally clear and emotionally calm state.",
+    "Astronom": "The scientific study of celestial objects, space, and the physical universe.",
+    "Candle making": "The process of making candles.",
+    "Soap making": "The process of making soap.",
+    "Watching films or series": "The act of watching moving pictures, often for entertainment.",
+    "Joinery": "The craft of joining pieces of wood together.",
+    "Dancing": "Moving rhythmically to music.",
+    "Do sport": "Participating in a sport or physical activity.",
+      "Production of clay and ceramic products": "The manufacturing of ceramic objects"
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>
