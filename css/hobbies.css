@@ -1,0 +1,258 @@
+@font-face {
+	font-family: 'UI'; 
+	src: url(../fonts/UI.ttf); 
+}
+
+body {
+    font-family: 'UI'; 
+    margin: 0;
+    padding: 0;
+    background-color: #FFF6F6;
+    color: #333;
+}
+
+
+nav {
+	padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 40px;
+}
+
+nav a {
+    color: #454545;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer {
+    background-color: #eee0e0;
+}
+
+footer p {
+    margin: 0;
+    padding: 30px 0px 10px 0px;
+    text-align: center;
+    font-size: 15px;
+}
+
+
+
+
+main {
+   padding: 20px;
+   padding: 0 100px;
+}
+
+main h1 {
+    color: #2922AC;
+    font-size: 48px;
+    width: 880px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+main h2 {
+    color: #454545;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.words-section {
+   display: flex;
+   flex-direction: column;
+   gap: 30px;
+}
+.word-card {
+    background-color: #FFE5E5;
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 25px;
+    -webkit-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+-moz-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+}
+.word-text {
+   text-align: left;
+}
+.word-title {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    margin-bottom:0;
+}
+.word-title .audio-icon{
+   margin-left: 20px;
+   margin-top: 5px;
+   cursor: pointer;
+}
+.transcription {
+    font-size: 21px;
+    color: #6c6c6c;
+    margin: 0;
+    margin-bottom:30px;
+}
+.translation {
+   font-size: 26px;
+    color: #333;
+    margin: 0;
+    margin-bottom:30px;
+    font-weight: bold;
+}
+.image-placeholder {
+    
+    border: 1px solid #ddd;
+    width: 345px;
+    height: 240px;
+    border-radius: 23px;
+
+}
+
+.image-placeholder img {
+    object-fit: cover;
+    width: 100%;
+
+}
+
+.training {
+    margin-top: 30px;
+    text-align: justify;
+    padding: 20px;
+}
+.training h2{
+   color: #000000;
+   font-size: 36px;
+   margin-bottom: 5px;
+   font-weight: bold;
+}
+.choose-game{
+    color: #A0A0A0;
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 30px;
+}
+.training-text{
+  color: #454545;
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 30px;
+    margin-bottom: 80px;
+}
+.buttons button {
+    background-color: #E0E0F0;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    width: 303px;
+    -webkit-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+-moz-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+}
+.buttons button:hover{
+    background-color: #d3cdcd;
+}
+
+
+@media(max-width:700px) {
+
+    nav {
+        padding-left: 70px;
+        padding-right: 70px;
+    }
+    
+    footer p {
+        margin: 0;
+        padding: 30px 0px 10px 0px;
+        text-align: center;
+        font-size: 15px;
+    }
+    
+    
+    main {
+       padding: 20px;
+       padding: 0 70px;
+    }
+    
+    main h1 {
+        font-size: 38px;
+        width: auto;
+    }
+    
+    main h2 {
+        font-size: 18px;
+    }
+    
+    .words-section {
+       display: flex;
+       flex-direction: column;
+       gap: 30px;
+    }
+    .word-card {
+        padding: 30px 40px;
+        display: block;
+
+    }
+    .word-title {
+        font-size: 30px;
+    }
+    .word-title .audio-icon{
+       margin-left: 20px;
+       margin-top: 5px;
+       cursor: pointer;
+    }
+    .transcription {
+        font-size: 18px;
+        margin-bottom:20px;
+    }
+    .translation {
+       font-size: 24px;
+        margin-bottom:30px;
+    }
+    .image-placeholder {
+        width: auto;
+        border-radius: 23px;
+        height: auto;
+    }
+    
+    .image-placeholder img {
+        object-fit: cover;
+        width: 100%;
+    }
+    
+    .buttons {
+        display: block;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 30px;
+        margin-bottom: 80px;
+    }
+    .buttons button {
+        background-color: #E0E0F0;
+        color: #333;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 20px;
+        width: 303px;
+        margin: 10px;
+    }
+    .buttons button:hover{
+        background-color: #d3cdcd;
+    }
+    
+}

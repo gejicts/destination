@@ -27,11 +27,11 @@ header {
     padding: 40px;
     background-image: url('../img/fon.png');
     background-repeat:no-repeat;
-    background-size: 100%;
+    background-size: cover;
     background-position: center;
     padding-bottom: 120px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 150px;
+    padding-right: 150px;
 }
 nav a {
     color: #454545;
@@ -51,7 +51,7 @@ nav a {
     font-size: 40px;
     color: #2922AC;
     font-style: italic;
-    padding-right: 100px;
+    padding-right: 140px;
     text-align: right;
     margin: 0px;
     padding-bottom: 20px;
@@ -151,4 +151,95 @@ footer p {
     padding: 30px 0px 10px 0px;
     text-align: center;
     font-size: 15px;
+}
+
+
+@media( max-width:500px ) {
+    
+    header {
+        background-size: cover;
+        padding-bottom: 120px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    
+    .header-content h1{
+        font-size: 50px;
+        margin: 0;
+        width: auto;
+        margin-top: 30px;
+    }
+    .header-content .subtitle {
+        font-size: 30px;
+        padding-right: 0px;
+        padding-top: 30px;
+    }
+    .features {
+        padding: 0;
+        padding-left: 20px;
+        margin: 0;
+        text-align: left;
+    }
+    .features li {
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+    
+    .step {
+        height: auto;
+
+    }
+    .step .number {
+        font-size: 60px;
+    }
+    .step h3 {
+        font-size: 30px;
+        margin: 0;
+    }
+    .step p {
+        font-size: 20px;
+    }
+    
+    .topics {
+        padding: 40px 50px;
+        text-align: center;
+    }
+    .topics h2 {
+        font-size: 50px;
+        margin: 0;
+    }
+    
+    .topics-content ul{
+       text-align: left;
+       list-style: none;
+       padding: 0;
+    }
+    .topics-content ul li{
+       background-color: #E1E0F0;
+       padding: 15px 20px;
+       border-radius: 30px;
+       margin-bottom: 10px;
+       cursor: pointer;
+       color: #333;
+       font-size: 20px;
+    }
+    .topics-content ul li:hover{
+       background-color: #f6f6f6;
+    }
+    .topics-content ul li::before{
+        content: '\203A';
+        margin-right: 10px;
+        color: #2a2a74;
+    }
+    
+    footer {
+        background-color: #eee0e0;
+    }
+    
+    footer p {
+        margin: 0;
+        padding: 30px 0px 10px 0px;
+        text-align: center;
+        font-size: 15px;
+    }
 }
