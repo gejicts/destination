@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+        "Agency": "A business or organization providing a specific service.",
+        "Map": "A diagrammatic representation of an area of land or sea showing physical features, cities, roads, etc.",
+        "Sunglasses": "Darkened glasses worn to protect the eyes from the sun.",
+        "Passport": "An official document issued by a government, certifying the holder's identity and citizenship and entitling them to travel under its protection to and from foreign countries.",
+        "Camera": "A device for recording visual images in the form of photographs, film, or video signals.",
+        "Beach": "A sandy or pebbly area by the sea or lake.",
+        "Sunscreen": "A cream or lotion applied to the skin to protect it from the sun's ultraviolet rays.",
+        "Globe": "A spherical or rounded object representing the earth.",
+        "Suitcase": "A rectangular case with a handle and hinged lid, used for carrying clothes and other personal possessions when traveling.",
+        "Backpack": "A bag carried on someone's back.",
+         "Handbag": "A woman's small bag that is used to carry personal items.",
+         "Ticket": "A piece of paper or card that gives the holder the right to enter a place or travel on public transport.",
+         "Reception": "The area in a hotel or business where visitors are received.",
+         "Truck": "A large, heavy motor vehicle used for transporting goods.",
+         "Tram": "A passenger vehicle, usually powered by electricity, that runs on rails laid in a street.",
+          "Bus": "A large motor vehicle carrying passengers by road, typically one serving the public on a fixed route.",
+         "Scooter": "A light two-wheeled vehicle, propelled by pushing with one foot or by a motor.",
+          "Ambulance": "A vehicle equipped for taking sick or injured people to hospital.",
+        "Taxi": "A car that is available for hire, typically with a meter to record the journey's cost.",
+         "Motorhome": "A large vehicle that is equipped for living in.",
+        "Airplane": "A powered flying vehicle with fixed wings and a weight greater than that of a glider.",
+         "Bike": "A bicycle or motorcycle.",
+        "Bicycle": "A vehicle with two wheels, propelled by pedals.",
+         "Van": "A medium-sized motor vehicle used for transporting goods or people.",
+          "Car": "A road vehicle, typically with four wheels, powered by an internal combustion engine and able to carry a small number of people.",
+           "Ship": "A large boat that carries people or goods by sea.",
+          "Boarding pass": "A card that you must show before you are allowed to get on a plane or ship.",
+          "Postage stamp": "A small piece of paper with a specific value that you buy and stick on a letter or package before you send it.",
+         "Information desk": "A place in a building, such as a hotel or airport, where you can get information.",
+          "Bus stop": "A place on a road where buses stop to allow passengers to get on and off.",
+           "School bus": "A bus that is used to take children to and from school.",
+        "Double-decker bus": "A bus with two passenger levels.",
+         "Police car": "A vehicle used by the police for transportation.",
+         "Subway train": "A train that runs on an underground rail system.",
+        "Fire truck": "A vehicle used by firefighters to put out fires.",
+        "Have a rest": "To relax or take a break from activity.",
+        "Spending time with family": "Engaging in activities with one's family members.",
+        "Watching TV": "Viewing television programs.",
+        "To carry out cleaning": "To perform the act of cleaning.",
+        "Arrange a party": "To organize or plan a social gathering for celebration.",
+        "Go shopping": "To engage in purchasing goods or services.",
+         "Walking a pet": "Taking a domestic animal for a walk.",
+        "Read the book": "To engage in the act of reading.",
+        "Surfing the Internet": "To explore or navigate the world wide web.",
+         "Skateboarding": "Riding on a skateboard."
+        };
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>

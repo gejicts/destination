@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+        "Soldier": "A person serving in an army.",
+    "Church": "A building used for public Christian worship.",
+    "Shchi": "A type of cabbage soup, a national Russian dish.",
+    "Victory Day": "A holiday commemorating the victory over Nazi Germany.",
+    "Population": "All the inhabitants of a particular town, area, or country.",
+    "Bliny": "Thin pancakes or crepes, often served with various fillings.",
+    "Sushki": "Small, hard, often ring-shaped bread products.",
+    "Felt boots": "Traditional winter footwear made of felted wool.",
+    "Sleigh": "A vehicle with runners, used for traveling over snow or ice.",
+    "Hut": "A small, simple dwelling or shelter.",
+    "Maslenitsa": "An Eastern Slavic religious and folk holiday, celebrated during the last week before Great Lent.",
+    "National symbols": "Symbols representing a nation (e.g., flag, emblem).",
+    "Samovar": "A heated metal container traditionally used to boil water for tea.",
+    "Coal": "A combustible black or dark brown rock consisting mainly of carbonized plant matter.",
+    "Birch": "A tree with thin, white bark.",
+    "Accordion": "A musical instrument with bellows and keys or buttons.",
+    "Ruble": "The currency unit of Russia.",
+    "Balalaika": "A Russian stringed musical instrument with a triangular body.",
+    "Russian bathhouse": "A type of sauna or steam bath, a significant part of Russian culture.",
+    "Bear": "A large, heavy mammal with thick fur, often seen as a symbol of Russia.",
+    "Hat with earflaps": "A warm winter hat with flaps that can be fastened at the crown of the head or tied at the chin.",
+    "Emblem": "A symbol or design that serves to identify an organization or nation.",
+    "Matreshka": "A set of wooden dolls of decreasing size placed one inside the other.",
+    "The Kremlin": "A fortified complex at the heart of Moscow, serving as the center of Russian government.",
+    "Flag": "A piece of cloth or similar material, typically oblong or square, attachable by one edge to a pole or rope and used as the symbol of a country, organization, or ship.",
+    "Trees": "A perennial woody plant.",
+    "Mountains": "A large natural elevation of the earth's surface rising abruptly from the surrounding level",
+    "Territory": "An area of land under the jurisdiction of a ruler or state."
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>

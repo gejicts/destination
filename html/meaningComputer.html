@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+        "Monitor": "A display device that shows visual information from a computer.",
+        "Hard drive": "A device for storing and retrieving digital data, including operating systems, applications, and user files.",
+        "Mouse": "A handheld pointing device used to interact with a computer's graphical user interface.",
+        "Motherboard": "The main circuit board of a computer that connects all the components.",
+        "Keyboard": "An input device that allows users to enter text and commands into a computer.",
+        "Laptop": "A portable computer that is small and light enough to be carried around.",
+        "Printer": "A device that produces a hard copy of documents or images.",
+         "Scanner": "A device that captures images or text from physical documents and converts them into digital format.",
+        "Camera": "A device used for recording or capturing still images or videos.",
+         "Processor": "The central processing unit of a computer that executes instructions.",
+         "Software": "A set of instructions, data or programs used to operate computers and execute specific tasks.",
+        "Flash drive": "A portable USB storage device for storing digital data.",
+        "Tablet": "A portable touchscreen computer that is larger than a smartphone and smaller than a laptop.",
+        "Desktop": "A personal computer designed for regular use at a single location.",
+         "Site": "A location connected to the internet which contains web pages.",
+        "Computer virus": "A type of malicious software that spreads from computer to computer.",
+        "Settings": "The area of a computer or device where preferences can be changed.",
+        "Application": "A computer program designed to carry out a particular task.",
+        "System unit": "The main part of a computer system, containing the motherboard, CPU, memory, and other components.",
+        "Data": "Facts and statistics collected together for reference or analysis.",
+        "Network": "A group of interconnected computers that communicate and share resources.",
+        "Internet": "A global network of interconnected computers.",
+        "Link": "A connection from one place on the internet to another",
+       "User": "A person who uses a computer or other machine or service.",
+         "File": "A resource for storing information, which is available to a computer program",
+         "Antivirus program": "A computer software used to prevent, detect and remove malware.",
+        "Password": "A secret word or phrase used to gain access to something.",
+        "Folder": "A virtual container in a computer system where files and other folders are stored.",
+        "E-mail": "Messages distributed by electronic means from one computer user to one or more recipients via a network.",
+        "Cursor": "A movable indicator used to show the position on a computer display where input is being entered.",
+         "Loading": "The process of a program or data being transferred from a secondary storage device to the main memory of a computer",
+         "Microphone":"An instrument used to amplify a weak signal to a louder sound, especially an instrument for converting sound waves into electrical energy.",
+          "Speakers":"A device that converts electrical energy into sound."
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>
