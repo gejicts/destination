@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+        "Swimmer": "An athlete who competes in swimming events.",
+  "Racer": "A person who participates in races, often involving speed or competition.",
+  "Archer": "A person who shoots arrows with a bow, especially in sport.",
+  "Boxer": "An athlete who engages in the sport of boxing.",
+  "Cyclist": "A person who rides a bicycle.",
+  "Skier": "A person who travels over snow on skis.",
+  "Gymnast": "An athlete who performs exercises requiring strength, flexibility, and control.",
+  "Snowboarder": "A person who rides a snowboard.",
+  "Football Player": "An athlete who plays football.",
+  "Racing car": "A vehicle designed for high-speed racing.",
+  "Ball": "A round object used in many sports.",
+  "Weightlifting": "The sport of lifting heavy weights.",
+  "Barbell": "A long metal bar with weights at each end, used for weightlifting.",
+  "Basketball": "A team sport played with a ball and two hoops.",
+  "Football": "A team sport played with a ball, also known as soccer.",
+  "Hockey": "A team sport played on ice with sticks and a puck.",
+  "Reward": "Something given in recognition of service, effort, or achievement.",
+  "Champion": "A person who has defeated all rivals in a competition.",
+  "Running": "The activity of moving rapidly on foot.",
+  "Diving": "The sport of jumping into water, often from a platform.",
+  "Shuttlecock": "A lightweight object used in badminton.",
+  "Snowboard": "A board used for gliding on snow.",
+  "Boxing": "A combat sport in which two people throw punches at each other.",
+  "Golf": "A sport in which players hit a ball into a series of holes on a course.",
+  "Boxing gloves": "Padded coverings for the hands worn by boxers.",
+  "Karate": "A martial art developed in Japan.",
+  "Gymnastics": "A sport involving exercises requiring balance, strength, and control.",
+  "Tennis": "A racket sport played with a ball and a net.",
+  "Goal": "A point scored in a game or competition.",
+  "Puck": "A hard rubber disc used in ice hockey.",
+  "Racket": "An implement used to strike a ball in tennis, badminton, etc.",
+  "Ski": "One of a pair of long, flat runners fastened to boots for gliding over snow.",
+  "Score": "The number of points earned in a game or competition.",
+  "Coach": "A person who trains an athlete or team.",
+  "Skates": "Boots with blades or wheels attached, used for gliding over ice or other surfaces.",
+  "Skiing": "The sport or activity of gliding over snow on skis.",
+  "Bicycle": "A vehicle with two wheels, propelled by pedals.",
+  "Tracksuit": "A suit consisting of loose trousers and a jacket, worn for sports practice.",
+  "Basket": "A container used in basketball for scoring points.",
+  "Kettlebell": "A cast-iron or cast-steel weight used for exercise.",
+  "Volleyball": "A team sport played with a ball and a net.",
+  "Bow": "A weapon used for shooting arrows."
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>
