@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+  "Architect": "A person who designs buildings and advises in their construction.",
+  "Blueprint": "A design plan or other technical drawing.",
+  "Design": "A plan or drawing produced to show the look and function of a building, garment, or other object before it is built or made.",
+  "Model": "A three-dimensional representation of a person or thing or of a proposed structure, typically on a smaller scale than the original.",
+  "Structure": "A building or other man-made object with a definite form or pattern.",
+  "Materials": "The matter from which a thing is or can be made.",
+  "Renovation": "The action of renovating a building.",
+  "Brick": "A rectangular block of baked clay used for building walls, pavements, and other structures.",
+  "Cement": "A powdery substance made with calcined lime and clay. It is mixed with water to form mortar or mixed with sand, gravel, and water to make concrete.",
+  "Hammer": "A tool with a heavy metal head mounted at right angles at the end of a handle, used for jobs such as breaking things, driving in nails, etc.",
+  "Teamwork": "The combined action of a group of people, especially when effective and efficient.",
+  "Foundation": "The lowest load-bearing part of a building, typically below ground level.",
+  "Crane": "A machine for lifting and moving heavy objects.",
+  "Tile": "A thin, usually square or rectangular covering used for roofs, floors, or walls.",
+  "Foreman": "A worker who supervises and directs other workers.",
+  "Construction helmet": "A hard hat worn on job sites to protect the head from injury.",
+  "Poster": "A large printed picture used for decoration or advertisement.",
+  "Software": "The programs and other operating information used by a computer.",
+  "Typography": "The art and technique of arranging type to make written language legible, readable, and appealing when displayed.",
+  "Palette": "The range of colors used by a particular artist or designer.",
+  "Analytics": "The systematic computational analysis of data or statistics.",
+  "Billboard": "A large outdoor board used for advertising.",
+  "Branding": "The promotion of a particular product or company by means of advertising and distinctive design.",
+  "Advertisement": "A notice or announcement in a public medium promoting a product, service, or event.",
+  "Booklet": "A small, thin book giving information.",
+  "Website": "A set of related web pages located under a single domain name, typically produced by a single person or organization.",
+  "Code": "A system of words, letters, figures, or other symbols substituted for other words, letters, etc., especially for the purposes of secrecy.",
+  "Interface": "A point where two systems, subjects, organizations, etc. meet and interact.",
+  "Developer": "A person or thing that develops something.",
+  "Programming language": "A vocabulary and set of grammatical rules for instructing a computer or computing device to perform specific tasks.",
+  "Algorithm": "A process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer.",
+  "Backend": "The parts of a computer application or program (such as a server) that are not directly accessed by the user.",
+  "Frontend": "The part of a computer application or program with which the user interacts directly.",
+  "Domain": "An area of territory owned or controlled by a ruler or government.",
+  "Landscape": "All the visible features of an area of countryside or land, often considered in terms of their aesthetic appeal.",
+  "Flowerbed": "A patch of ground prepared for planting flowers.",
+  "Pathway": "A way or track laid down for walking on.",
+  "Lawn": "An area of mown grass around a house, park, or other building.",
+  "Shrub": "A woody plant which is smaller than a tree and has several stems arising at or near the ground.",
+  "Plant": "A living organism of the kind exemplified by trees, shrubs, herbs, grasses, ferns, and mosses, typically growing in a permanent site, absorbing water and inorganic substances through its roots, and synthesizing nutrients in its leaves by photosynthesis using the green pigment chlorophyll.",
+  "Pond": "A small body of still water formed naturally or by hollowing or embanking."
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>

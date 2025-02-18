@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw the Word Game</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #FFF6F6;
+            padding: 10px;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: #454545;
+            margin: 0;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            cursor: crosshair;
+            width: 100%;
+             height: 500px;/* Увеличена высота canvas */
+            display: block;
+             box-sizing: border-box;
+        }
+
+         .controls {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .controls__colors{
+           display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .controls__button {
+            padding: 8px 15px;
+            background-color: #E0E0F0;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 0px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .controls__button:hover {
+            background-color: #d3cdcd;
+        }
+
+        #wordToDraw {
+            margin: 10px 0;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        #message {
+            margin: 10px 0;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+          @media (max-width: 600px) {
+           .container {
+            padding: 10px;
+           }
+            h1 {
+             font-size: 20px;
+           }
+          h2 {
+            font-size: 14px;
+           }
+           .controls {
+              flex-direction: column;
+           }
+          .controls__button {
+              margin-right: 0;
+           }
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Drawing</h1>
+    <h2>Draw the meaning of the word on the field, as you imagine it</h2>
+    <canvas id="gameCanvas"></canvas>
+    <div class="controls">
+         <div class="controls__colors">
+            <input type="color" id="colorPicker" value="#000000">
+         </div>
+    </div>
+    <p id="wordToDraw"></p>
+     <div class="controls">
+         <button id="skipBtn" class="controls__button">Skip</button>
+        <button id="clearBtn" class="controls__button">Clear</button>
+        <button id="nextBtn" class="controls__button">Next</button>
+    </div>
+    <p id="message"></p>
+</div>
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const wordToDraw = document.getElementById('wordToDraw');
+    const skipBtn = document.getElementById('skipBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const colorPicker = document.getElementById('colorPicker');
+    const message = document.getElementById('message');
+
+    let drawing = false;
+    let lastX, lastY;
+    let color;
+
+    const words = [
+        "Architect",
+        "Blueprint",
+        "Design",
+        "Model",
+        "Structure",
+        "Materials",
+        "Renovation",
+        "Brick",
+        "Cement",
+        "Hammer",
+        "Teamwork",
+        "Foundation",
+        "Crane",
+        "Tile",
+        "Foreman",
+        "Construction helmet",
+        "Checkout",
+        "Poster",
+        "Software",
+        "Typography",
+        "Palette",
+        "Analytics",
+        "Billboard",
+        "Branding",
+        "Advertisement",
+        "Booklet",
+        "Website",
+        "Code",
+        "Interface",
+        "Developer",
+        "Programming language",
+        "Algorithm",
+        "Backend",
+        "Frontend",
+        "Domain",
+        "Landscape",
+        "Flowerbed",
+        "Pathway",
+        "Lawn",
+        "Shrub",
+        "Plant",
+        "Pond"
+        ];
+
+   function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawLine(x1, y1, x2, y2, color) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    }
+
+    function getRandomWord() {
+        return words[Math.floor(Math.random() * words.length)];
+    }
+
+    function displayWord() {
+        wordToDraw.textContent = `Draw: ${getRandomWord()}`;
+    }
+
+    function nextWord() {
+        clearCanvas();
+        displayWord();
+    }
+
+    function getMousePos(canvas, evt) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
+            y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
+        };
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+        drawing = true;
+        const mousePos = getMousePos(canvas, e);
+        lastX = mousePos.x;
+        lastY = mousePos.y;
+        color = colorPicker.value;
+    });
+
+    canvas.addEventListener('mouseup', () => {
+        drawing = false;
+        message.textContent = "Keep going!";
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (!drawing) return;
+         const mousePos = getMousePos(canvas, e);
+        const currentX = mousePos.x;
+        const currentY = mousePos.y;
+        drawLine(lastX, lastY, currentX, currentY, color);
+          lastX = currentX;
+            lastY = currentY;
+    });
+
+    skipBtn.addEventListener('click', displayWord);
+    clearBtn.addEventListener('click', clearCanvas);
+    nextBtn.addEventListener('click', nextWord);
+
+    displayWord();
+
+        //  Размеры canvas
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+</script>
+</body>
+</html>
