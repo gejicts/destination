@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+  #score {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    #end-result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+        <div id="score">Correct answers: <span id="correct-count">0</span></div>
+        <div id="end-result"></div>
+    </div>
+    <script>
+        const words = {
+            "Mathematics": "The abstract science of number, quantity, and space.",
+            "Hardware": "The physical components of a computer system.",
+            "Remote control": "A device used to control equipment from a distance.",
+            "Drone": "An unmanned aerial vehicle.",
+            "Physics": "The science that deals with matter, energy, motion, and force.",
+            "Electricity": "A form of energy resulting from the existence of charged particles.",
+            "Object": "A material thing that can be seen and touched.",
+            "Satellite": "An artificial body placed in orbit around the earth or another planet.",
+            "Scientific instruments": "Tools used for scientific research and measurement.",
+            "Scientist": "A person who is studying or has expert knowledge of one or more of the natural sciences.",
+            "Environment": "The surroundings or conditions in which a person, animal, or plant lives or operates.",
+            "Biology": "The study of living organisms.",
+            "Medicine": "The science or practice of the diagnosis, treatment, and prevention of disease.",
+            "Scale": "An instrument for weighing.",
+            "Еxperience": "Practical contact with and observation of facts or events.",
+            "Network": "A group or system of interconnected people or things.",
+            "Sensor": "A device which detects or measures a physical property and records, indicates, or otherwise responds to it.",
+            "Science": "The intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.",
+            "Microscope": "An instrument used to view small objects that are not visible to the naked eye.",
+            "Telescope": "An optical instrument designed to make distant objects appear nearer.",
+            "Smartphone": "A mobile phone that performs many of the functions of a computer.",
+            "Invention": "The creation of something new.",
+            "Space": "The physical universe beyond the earth's atmosphere.",
+            "Robot": "A machine capable of carrying out a complex series of actions automatically.",
+            "Device": "A thing made or adapted for a particular purpose.",
+            "Data": "Facts and statistics collected together for reference or analysis.",
+            "Microchip": "A tiny wafer of semiconducting material used to make an integrated circuit.",
+            "Error": "A mistake.",
+            "Cursor": "A movable indicator on a computer screen identifying the point of input or action.",
+            "Computer": "An electronic device for storing and processing data."
+        };
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+const correctCountElement = document.getElementById("correct-count");
+const endResultElement = document.getElementById("end-result");
+
+let currentWord;
+let correctAnswers = 0; // Добавляем счетчик правильных ответов
+let wordsUsed = []; // Массив для хранения уже использованных слов
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+  if (wordsUsed.length === keys.length) {
+        return null; // Все слова использованы
+    }
+    let word;
+    do {
+      word = keys[Math.floor(Math.random() * keys.length)];
+    } while (wordsUsed.includes(word));
+    wordsUsed.push(word);
+    return word;
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    if (!currentWord) {
+        endGame();
+        return;
+    }
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+    removeClassesFromInput();
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+         correctAnswers++;
+         correctCountElement.textContent = correctAnswers;
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+function endGame() {
+    definitionElement.textContent = "";
+    userInputElement.style.display = 'none';
+    checkButton.style.display = 'none';
+    nextWordButton.style.display = 'none';
+    resultElement.textContent = "";
+    endResultElement.textContent = `Game over! Your results: ${correctAnswers} / ${Object.keys(words).length}`;
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   checkAnswer(); // Проверяем ответ перед переходом к следующему слову
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>

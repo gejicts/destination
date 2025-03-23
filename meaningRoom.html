@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+        "Wardrobe": "A large, tall cabinet used for storing clothes.",
+  "Curtains": "Pieces of material used to block light or provide privacy at windows.",
+  "Armchair": "A comfortable chair with armrests.",
+  "Pillow": "A soft cushion used to support the head in bed.",
+  "Blanket": "A covering used to keep warm in bed.",
+  "Clock": "An instrument for measuring and showing time.",
+  "Painting": "An artwork created using paint.",
+  "Shelf": "A flat, horizontal board used to hold items.",
+  "Bed": "A piece of furniture for sleeping or resting on.",
+  "Carpet": "A floor covering made of thick woven material.",
+  "Mirror": "A reflective surface.",
+  "Floor hanger": "A standing structure for hanging clothes.",
+  "Wall lamp": "A light fixture attached to a wall.",
+  "Houseplant": "A plant grown indoors for decorative purposes.",
+  "Rack": "A framework for holding or displaying items.",
+  "Chair": "A seat for one person, typically with a back and four legs.",
+  "Sofa": "A long upholstered seat with a back and arms, for several people.",
+  "Chest": "A large strong box, typically used for storage.",
+  "Blinds": "A screen for a window, made of adjustable slats.",
+  "Desk": "A piece of furniture with a flat or sloping surface for writing or reading.",
+  "Chandelier": "A decorative hanging light fixture with multiple branches.",
+  "Pouffe": "A padded seat without a back or arms.",
+  "Bedside table": "A small table placed next to a bed.",
+  "Lamp": "A device for giving light.",
+  "Air fryer": "A kitchen appliance that cooks food by circulating hot air.",
+  "Toaster": "An appliance for toasting bread.",
+  "Hairdryer": "An electrical device for drying hair.",
+  "Stereo system": "A set of electronic equipment for high-quality sound reproduction.",
+  "Stove": "An appliance for cooking food using heat.",
+  "Iron": "An appliance used to smooth clothes using heat and pressure.",
+  "Fan": "A device for creating a current of air for cooling.",
+  "Washing machine": "An appliance for washing clothes.",
+  "Heater": "A device for warming a room or space.",
+  "Refrigerator": "An appliance for keeping food cold.",
+  "Vacuum cleaner": "An appliance for cleaning floors by suction.",
+  "Electric fireplace": "A heating appliance that simulates a fireplace using electricity.",
+  "Electric kettle": "An appliance for boiling water using electricity.",
+  "Photo camera": "A device for taking photographs.",
+  "Multicooker": "An electric cooking appliance with various functions.",
+  "Induction stove": "A cooking appliance that uses electromagnetic induction to heat cookware.",
+  "Juicer": "An appliance for extracting juice from fruits and vegetables.",
+  "Flashlight": "A small portable electric lamp.",
+  "Alarm clock": "A clock that can be set to sound an alarm at a specified time.",
+  "Coffee maker": "An appliance for brewing coffee.",
+  "Waffle maker": "An appliance for making waffles.",
+  "Bread machine": "An appliance for baking bread automatically."
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>

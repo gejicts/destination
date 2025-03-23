@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+        "Husband": "A married man.",
+  "Wife": "A married woman.",
+  "Shchi": "A type of Russian cabbage soup.",
+  "Spouses": "A married couple.",
+  "Daughter": "A female child.",
+  "Son": "A male child.",
+  "Son-in-law": "The husband of one's daughter.",
+  "Daughter-in-law": "The wife of one's son.",
+  "Grandson": "The son of one's son or daughter.",
+  "Granddaughter": "The daughter of one's son or daughter.",
+  "Grandchildren": "The children of one's children.",
+  "Brother": "A male sibling.",
+  "Sister": "A female sibling.",
+  "Siblings": "Brothers and sisters.",
+  "Nephew": "The son of one's brother or sister.",
+  "Niece": "The daughter of one's brother or sister.",
+  "Cousin": "The child of one's aunt or uncle.",
+  "Mother": "A female parent.",
+  "Father": "A male parent.",
+  "Parents": "A mother and father.",
+  "Aunt": "The sister of one's parent or the wife of one's uncle.",
+  "Grandmother": "The mother of one's parent.",
+  "Uncle": "The brother of one's parent or the husband of one's aunt.",
+  "Grandfather": "The father of one's parent.",
+  "Grandparents": "A grandmother and grandfather.",
+  "Sister-in-law": "The sister of one's spouse or the wife of one's brother.",
+  "Brother-in-law": "The brother of one's spouse or the husband of one's sister.",
+  "Mother-in-law": "The mother of one's spouse.",
+  "Father-in-law": "The father of one's spouse.",
+  "Chin": "The part of the face below the mouth.",
+  "Lips": "The two fleshy parts forming the upper and lower edges of the mouth.",
+  "Eyebrows": "The arches of hair above the eyes.",
+  "Eyes": "The organs of sight.",
+  "Ears": "The organs of hearing.",
+  "Nose": "The part of the face that sticks out above the mouth, used for breathing and smelling.",
+  "Hair": "The filaments growing from the skin of mammals.",
+  "Eyelashes": "The hairs fringing the eyelid.",
+  "Teeth": "Hard, bony enamel-coated structures in the jaws used for biting and chewing.",
+  "Cheeks": "The area of the face below the eyes and between the nose and ear.",
+  "Skin": "The outer protective layer of the body.",
+  "Long hair": "Hair that extends to or below the shoulders.",
+  "Wavy hairs": "Hair that has bends or curves.",
+  "Short hair": "Hair that is cut to a length above the shoulders.",
+  "Curly hair": "Hair that grows in spirals or curls.",
+  "Bald": "Having little or no hair on the head.",
+  "Moustache": "A strip of hair worn above the upper lip.",
+  "In glasses": "Wearing spectacles for vision correction or protection.",
+  "Beard": "Hair growing on the chin and cheeks of a man.",
+  "Underweight": "Below the normal or healthy weight for one's age and height.",
+  "Overweight": "Heavier than the standard weight range for one's height.",
+  "Obesity": "The condition of being grossly fat or overweight.",
+  "Extreme obesity": "Very excessive fatness.",
+  "Baby": "A very young child.",
+  "Child": "A young human being below the age of puberty or legal majority.",
+  "Teenager": "A person aged between 13 and 19 years.",
+  "Elderly": "Old or aging.",
+  "Optimistic": "Hopeful and confident about the future.",
+  "Sleepy": "Feeling or ready for sleep.",
+  "Friendly": "Kind and pleasant.",
+  "Pessimistic": "Tending to see the worst aspect of things.",
+  "Thoughtful": "Showing consideration for the needs of other people.",
+  "Evil": "Profoundly immoral and wicked.",
+  "Sick": "Affected by illness or disease.",
+  "Amorous": "Showing, feeling, or relating to sexual desire.",
+  "Scared": "Afraid; frightened.",
+  "Smart": "Intelligent or clever.",
+  "Stupid": "Lacking intelligence or common sense.",
+  "Sad": "Feeling or showing sorrow; unhappy.",
+  "Surprised": "Feeling or showing astonishment or amazement.",
+  "Laid-back": "Relaxed and easy-going.",
+  "Stubborn": "Having or showing dogged determination not to change one's attitude or position."
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>

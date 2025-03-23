@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+  "Bakery": "A place where bread, cakes, and pastries are made and sold.",
+  "Bookshop": "A shop where books are sold.",
+  "Flower shop": "A shop where flowers and bouquets are sold.",
+  "Barbershop": "A place where men's hair is cut.",
+  "Scale": "A device for weighing things.",
+  "Hanger": "A device used for hanging clothes.",
+  "Shopping bag": "A bag used for carrying purchased items.",
+  "Fitting room": "A room in a shop where customers can try on clothes.",
+  "Customer": "A person who buys goods or services from a shop or business.",
+  "Basket": "A container used to hold items for purchase.",
+  "Receipt": "A document showing proof of purchase.",
+  "Trolley": "A cart used for carrying groceries or other items in a store.",
+  "Price tag": "A label showing the price of an item.",
+  "Self-checkout": "A system where customers scan and pay for their own items.",
+  "Seller": "A person who sells goods or services.",
+  "Checkout": "The area in a store where customers pay for their purchases.",
+  "Wallet": "A small folding case for carrying money and cards.",
+  "Sale": "A period when goods are sold at a reduced price.",
+  "Grapes": "A type of fruit that grows in clusters.",
+  "Strawberry": "A red, heart-shaped fruit.",
+  "Lemon": "A yellow citrus fruit.",
+  "Cabbage": "A leafy green vegetable.",
+  "Peach": "A soft, juicy fruit with a fuzzy skin.",
+  "Apple": "A round fruit with firm, crisp flesh.",
+  "Orange": "A citrus fruit with a bright orange peel.",
+  "Cucumber": "A long, green vegetable with a mild flavor.",
+  "Carrot": "A long, orange root vegetable.",
+  "Potatoes": "Starchy tubers that are a staple food.",
+  "Mushrooms": "Fungi that are often used in cooking.",
+  "Tomato": "A red or yellow fruit used as a vegetable.",
+  "Onion": "A bulb-shaped vegetable with a strong flavor.",
+  "Banana": "A long, curved yellow fruit.",
+  "Dress": "A one-piece garment worn by women.",
+  "Skirt": "A garment that hangs from the waist.",
+  "Jacket": "An outer garment worn over a shirt or dress.",
+  "Hat": "A covering for the head.",
+  "Scarf": "A piece of fabric worn around the neck or head for warmth or decoration.",
+  "Gloves": "Coverings for the hands, typically with separate fingers.",
+  "Boots": "Sturdy footwear that covers the ankle and sometimes the leg.",
+  "Shirt": "A garment worn on the upper body with sleeves and a collar.",
+  "T-shirt": "A casual garment worn on the upper body, typically with short sleeves and a round neckline.",
+  "Cap": "A close-fitting head covering with a visor.",
+  "Hoodie": "A sweatshirt with a hood.",
+  "Coat": "A long outer garment worn for warmth.",
+  "Jeans": "Trousers made of denim.",
+  "Trousers": "An outer garment covering the body from the waist to the ankles.",
+  "Socks": "Coverings for the feet worn inside shoes.",
+  "Shoes": "Footwear worn to protect and support the feet."
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>

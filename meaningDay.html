@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition Game</title>
+    <style type="text/css">
+        body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 0;
+    background-color: #FFF6F6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #454545;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#definition {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #E0E0F0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d3cdcd;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+    .correct {
+    border: 2px solid green;
+  }
+  .incorrect{
+    border: 2px solid red;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Definition Game</h1>
+        <h2>Read the meaning and understand what kind of word it is</h2>
+        <p id="definition"></p>
+        <input type="text" id="userInput" placeholder="Enter the word">
+        <button id="checkButton">Check Answer</button>
+        <p id="result"></p>
+        <button id="nextWordButton">Next Word</button>
+    </div>
+    <script>
+        const words = {
+            "Daily routine": "A set of activities that you do every day at the same time.",
+  "Wake up": "To stop sleeping; to become awake.",
+  "Get up": "To get out of bed after sleeping.",
+  "Take a shower": "To wash yourself using a shower.",
+  "Brush my teeth": "To clean your teeth with a brush and toothpaste.",
+  "Shave": "To remove hair from your face or body with a razor.",
+  "Get dressed": "To put clothes on.",
+  "Do makeup": "To apply cosmetics to your face.",
+  "Comb my hair": "To tidy your hair using a comb.",
+  "Make the bed": "To arrange the covers neatly on a bed.",
+  "Do morning exercises": "To perform physical activities in the morning to improve fitness.",
+  "Make breakfast": "To prepare the first meal of the day.",
+  "Drink coffee": "To consume coffee as a beverage.",
+  "Have breakfast": "To eat the first meal of the day.",
+  "Feed pets": "To give food to domestic animals.",
+  "Clean the flat": "To tidy and remove dirt from an apartment.",
+  "Sweep the floor": "To clean the floor using a broom.",
+  "Wash the dishes": "To clean plates, bowls, and cutlery after a meal.",
+  "Take out trash": "To remove garbage from a building.",
+  "Do the laundry": "To wash clothes, sheets, etc.",
+  "Iron the clothes": "To remove creases from clothing using a heated iron.",
+  "Walk the dog": "To take a dog for a walk.",
+  "Watch TV": "To view television programs.",
+  "Surf the internet": "To browse the World Wide Web.",
+  "Listen to music": "To enjoy audio content.",
+  "Play videogames": "To engage in video game entertainment.",
+  "Go to college": "To attend an institution of higher education.",
+  "Come home": "To return to your residence.",
+  "Go shopping": "To visit stores to buy goods.",
+  "Play the guitar": "To produce music using a guitar.",
+  "Meet with friends": "To socialize with acquaintances.",
+  "Read a book": "To engage in reading a written work.",
+  "Go to bed": "To lie down in order to sleep.",
+  "Take a bath": "To wash yourself in a bathtub."
+};
+
+
+const definitionElement = document.getElementById("definition");
+const userInputElement = document.getElementById("userInput");
+const checkButton = document.getElementById("checkButton");
+const resultElement = document.getElementById("result");
+const nextWordButton = document.getElementById("nextWordButton");
+
+let currentWord;
+
+function getRandomWord() {
+  const keys = Object.keys(words);
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+function displayNewWord() {
+    currentWord = getRandomWord();
+    definitionElement.textContent = words[currentWord];
+    userInputElement.value = "";
+    resultElement.textContent = "";
+}
+
+
+function checkAnswer() {
+    const userAnswer = userInputElement.value.trim();
+    if (userAnswer.toLowerCase() === currentWord.toLowerCase()) {
+        resultElement.textContent = "Correct!";
+        userInputElement.classList.remove("incorrect");
+         userInputElement.classList.add("correct");
+
+    } else {
+        resultElement.textContent = "Incorrect, try again";
+        userInputElement.classList.remove("correct");
+        userInputElement.classList.add("incorrect");
+    }
+}
+
+function removeClassesFromInput(){
+    userInputElement.classList.remove("correct");
+     userInputElement.classList.remove("incorrect");
+}
+
+checkButton.addEventListener("click", checkAnswer);
+nextWordButton.addEventListener("click", () => {
+   removeClassesFromInput();
+   displayNewWord();
+});
+displayNewWord();</script>
+</body>
+</html>

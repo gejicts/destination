@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Подключаем файл стилей -->
+    <style>
+        body {
+            background-color: #FFF6F6;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        #container,
+        #container-reverse {
+            background-color: white;
+            width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 50%;
+            /* Занимает всю ширину контейнера */
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            /* Учитывать padding и border */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #E0E0F0;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #d3cdcd;
+        }
+
+        #result,
+        #result-reverse {
+            margin-top: 15px;
+            /* Уменьшаем верхний отступ */
+            font-weight: bold;
+        }
+
+        #score,
+        #score-reverse {
+            margin-top: 5px;
+            /* Уменьшаем верхний отступ */
+            font-size: 18px;
+        }
+
+        #end-result,
+        #end-result-reverse {
+            margin-top: 10px;
+            /* Уменьшаем верхний отступ */
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .game-container {
+            margin-bottom: 20px;
+            /* Уменьшаем отступ между играми */
+            padding: 0 10px;
+            /* Добавляем отступы по бокам */
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 600px) {
+
+            #container,
+            #container-reverse {
+                width: 95%;
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+    <title>Dictionary - Word Game</title>
+</head>
+
+<body>
+    <header>
+    </header>
+    <main>
+        <div class="game-container">
+            <div id="container">
+                <h1>Translate from English to Russian</h1>
+                <p id="word">Loading...</p>
+                <input type="text" id="translation" placeholder="Write a translation">
+                <br>
+                <button id="check">Next</button>
+                <button id="skip">Skip</button>
+                <div id="result"></div>
+                <div id="score">
+                    Correct answers: <span id="correct-count">0</span>
+                </div>
+                <div id="end-result"></div>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div id="container-reverse">
+                <h1>Translate from Russian to English</h1>
+                <p id="word-reverse">Loading...</p>
+                <input type="text" id="translation-reverse" placeholder="Write a translation">
+                <br>
+                <button id="check-reverse">Next</button>
+                <button id="skip-reverse">Skip</button>
+                <div id="result-reverse"></div>
+                <div id="score-reverse">
+                    Correct answers: <span id="correct-count-reverse">0</span>
+                </div>
+                <div id="end-result-reverse"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright © 2025</p>
+    </footer>
+
+    <script>
+        // Function to get user's custom words from local storage
+        function getCustomWords() {
+            const storedCategories = localStorage.getItem('customCategories');
+            if (storedCategories) {
+                const customCategories = JSON.parse(storedCategories);
+                const customWords = {};
+                customCategories.forEach(category => {
+                    customWords[category.englishWord] = category.translation;
+                });
+                return customWords;
+            } else {
+                return {}; // Return an empty object if no custom words are found
+            }
+        }
+
+        // Load custom words
+        let words = {};
+
+        // Load custom words and merge them with the default words
+        const customWords = getCustomWords();
+        words = {
+            ...words,
+            ...customWords
+        };
+
+
+        // Data for the Russian to English game (reversed)
+        const wordsReverse = {};
+        for (const eng in words) {
+            wordsReverse[words[eng]] = eng;
+        }
+
+        // Function to shuffle array (Fisher-Yates shuffle)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+
+        // Function to create game logic (avoids repetition)
+        function createGame(containerId, wordsData) {
+            const container = document.getElementById(containerId);
+            const isReverse = containerId === "container-reverse"; // Determine direction
+
+            const wordElement = document.getElementById((isReverse ? "word-reverse" : "word"));
+            const translationInput = document.getElementById((isReverse ? "translation-reverse" : "translation"));
+            const checkButton = document.getElementById((isReverse ? "check-reverse" : "check"));
+            const skipButton = document.getElementById((isReverse ? "skip-reverse" : "skip"));
+            const resultElement = document.getElementById((isReverse ? "result-reverse" : "result"));
+            const correctCountElement = document.getElementById((isReverse ? "correct-count-reverse" : "correct-count"));
+            const endResultElement = document.getElementById((isReverse ? "end-result-reverse" : "end-result"));
+
+
+            let wordList = Object.keys(wordsData);
+            wordList = shuffleArray(wordList); // Shuffle the word list
+            let currentWordIndex = 0;
+            let correctCount = 0;
+
+            function displayWord() {
+                wordElement.textContent = wordList[currentWordIndex];
+                translationInput.value = "";
+                translationInput.focus();
+            }
+
+            function checkAnswer() {
+                const userAnswer = translationInput.value.trim();
+                const correctAnswer = wordsData[wordList[currentWordIndex]];
+
+                if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                    resultElement.textContent = "Right!";
+                    correctCount++;
+                    correctCountElement.textContent = correctCount;
+                } else {
+                    resultElement.textContent = `Wrong. Right answer: ${correctAnswer}`;
+                }
+
+                currentWordIndex++;
+                if (currentWordIndex < wordList.length) {
+                    displayWord();
+                } else {
+                    endGame();
+                }
+            }
+
+            function skipWord() {
+                resultElement.textContent = "";
+                currentWordIndex++;
+                if (currentWordIndex < wordList.length) {
+                    displayWord();
+                } else {
+                    endGame();
+                }
+            }
+
+            function endGame() {
+                wordElement.textContent = "Game over!";
+                translationInput.style.display = "none";
+                checkButton.style.display = "none";
+                skipButton.style.display = "none";
+                resultElement.textContent = "";
+                endResultElement.textContent = `Your score: ${correctCount} out of ${wordList.length}`;
+            }
+
+            checkButton.addEventListener("click", checkAnswer);
+            skipButton.addEventListener("click", skipWord);
+            displayWord();
+        }
+
+        // Initialize both games
+        createGame("container", words);
+        createGame("container-reverse", wordsReverse);
+    </script>
+</body>
+
+</html>

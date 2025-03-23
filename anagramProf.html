@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Анаграмма</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<style type="text/css">
+  body {
+      background-color: #FFF6F6;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 10px; /* Добавляем отступы по бокам */
+    }
+
+    .container {
+        width: 95%; /* Занимает 95% ширины экрана */
+        max-width: 500px; /* Максимальная ширина */
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+         box-sizing: border-box; /* Учитываем padding и border */
+    }
+
+    h1 {
+        font-size: 24px; /* Увеличиваем размер заголовка */
+    }
+
+    h2 {
+        color: #454545;
+        margin: 0;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    #word-container {
+        margin-top: 20px;
+    }
+
+    #letter-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .letter-box {
+      width: 35px; /* Увеличиваем размер letter-box */
+      height: 35px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+       font-size: 1.2em; /* Увеличиваем размер шрифта букв */
+    }
+    #input-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .input-box {
+        width: 35px; /* Увеличиваем размер input-box */
+        height: 35px;
+        border: 1px solid #ccc;
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+         font-size: 1.2em; /* Увеличиваем размер шрифта букв */
+    }
+
+    .filled {
+        background-color: white;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        background-color: #E0E0F0;
+        color: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #d3cdcd;
+    }
+    /* Адаптация для экранов меньше 480px */
+    @media (max-width: 480px) {
+        h1 {
+             font-size: 20px;
+          }
+        h2 {
+           font-size: 14px;
+          }
+         .letter-box, .input-box {
+             width: 30px;
+            height: 30px;
+             font-size: 1em;
+        }
+    }
+    #score {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    #end-result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Anagram</h1>
+    <h2>You need to put the letters of the word in the right order</h2>
+    <div id="word-container">
+        <div id="letter-container"></div>
+        <div id="input-container"></div>
+        <p id="result"></p>
+    </div>
+    <button id="next-word">Next word</button>
+    <div id="score">Correct answers: <span id="correct-words">0</span></div>
+    <div id="end-result"></div>
+  </div>
+  <script>
+    const words = [
+        "Architect",
+        "Blueprint",
+        "Design",
+        "Model",
+        "Structure",
+        "Materials",
+        "Renovation",
+        "Brick",
+        "Cement",
+        "Hammer",
+        "Teamwork",
+        "Foundation",
+        "Crane",
+        "Tile",
+        "Foreman",
+        "Construction helmet",
+        "Checkout",
+        "Poster",
+        "Software",
+        "Typography",
+        "Palette",
+        "Analytics",
+        "Billboard",
+        "Branding",
+        "Advertisement",
+        "Booklet",
+        "Website",
+        "Code",
+        "Interface",
+        "Developer",
+        "Programming language",
+        "Algorithm",
+        "Backend",
+        "Frontend",
+        "Domain",
+        "Landscape",
+        "Flowerbed",
+        "Pathway",
+        "Lawn",
+        "Shrub",
+        "Plant",
+        "Pond"
+        ];
+
+    let currentWordIndex = 0; // Индекс текущего слова
+    let currentWord = "";
+    let shuffledWord = "";
+    let inputWord = "";
+    let correctWords = 0; // Добавляем счетчик правильных слов
+
+    const letterContainer = document.getElementById("letter-container");
+    const inputContainer = document.getElementById("input-container");
+    const result = document.getElementById("result");
+    const nextWordButton = document.getElementById("next-word");
+    const correctWordsElement = document.getElementById("correct-words"); // Получаем элемент для отображения счета
+    const endResultElement = document.getElementById("end-result"); // Получаем элемент для отображения итогового результата
+    let tryAgainButton = null; // Инициализируем tryAgainButton в null
+
+    function shuffleWord(word) {
+      const arr = word.split('');
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr.join('');
+    }
+
+    function createLetterBoxes() {
+        letterContainer.innerHTML = "";
+        shuffledWord.split('').forEach((letter, index) => {
+            const letterBox = document.createElement("div");
+            letterBox.classList.add("letter-box");
+            letterBox.textContent = letter;
+            letterBox.setAttribute("data-index", index);
+            letterBox.addEventListener("click", handleLetterClick);
+            letterContainer.appendChild(letterBox);
+        });
+    }
+
+    function createInputBoxes() {
+        inputContainer.innerHTML = "";
+        for (let i = 0; i < currentWord.length; i++) {
+            const inputBox = document.createElement("div");
+            inputBox.classList.add("input-box");
+            inputBox.setAttribute("data-index", i);
+            inputContainer.appendChild(inputBox);
+        }
+    }
+
+    function handleLetterClick(event) {
+        const letterBox = event.target;
+        if (letterBox.classList.contains("used")) return;
+        const letter = letterBox.textContent;
+        const index = inputWord.length;
+        if (index < currentWord.length) {
+            const inputBox = inputContainer.children[index];
+            inputBox.textContent = letter;
+            inputBox.classList.add("filled");
+            inputWord += letter;
+            letterBox.classList.add("used");
+            letterBox.style.backgroundColor = "lightgray"
+            if (inputWord.length === currentWord.length) {
+                checkAnswer();
+            }
+        }
+    }
+
+    function clearInput(){
+        inputWord = "";
+        inputContainer.querySelectorAll(".filled").forEach(element => {
+            element.classList.remove("filled");
+            element.textContent = "";
+        });
+        letterContainer.querySelectorAll(".letter-box").forEach(element => {
+          element.classList.remove("used");
+          element.style.backgroundColor = "";
+        })
+    }
+
+    function checkAnswer() {
+        if (inputWord.toLowerCase() === currentWord.toLowerCase()) {
+            result.textContent = "Right!";
+            correctWords++; // Увеличиваем счетчик правильных слов
+            correctWordsElement.textContent = correctWords; // Обновляем отображение счета
+           if(tryAgainButton){
+                 tryAgainButton.remove();
+                  tryAgainButton = null; // Сбрасываем значение tryAgainButton
+           }
+        } else {
+            result.textContent = "Wrong ";
+            if (!tryAgainButton) {
+                tryAgainButton = document.createElement("button");
+                tryAgainButton.textContent = "Try again";
+                tryAgainButton.addEventListener("click", tryAgain);
+                result.appendChild(tryAgainButton);
+            }
+        }
+    }
+
+    function tryAgain() {
+      clearInput(); //Очистить поля ввода
+      result.textContent = "";
+      if(tryAgainButton) {
+         tryAgainButton.remove();
+        tryAgainButton = null; // Сбрасываем значение tryAgainButton
+      }
+    }
+
+    function startGame() {
+      if (currentWordIndex < words.length) {
+          clearInput(); // Очистить поля ввода
+          currentWord = words[currentWordIndex];
+          shuffledWord = shuffleWord(currentWord);
+          createLetterBoxes();
+          createInputBoxes();
+          result.textContent = "";
+      } else {
+          endGame();
+      }
+    }
+
+    function endGame() {
+        // Показываем итоговый результат
+        letterContainer.style.display = 'none';
+        inputContainer.style.display = 'none';
+        nextWordButton.style.display = 'none';
+        result.textContent = ""; // Очищаем сообщение о результате
+        endResultElement.textContent = `Game over! Your results: ${correctWords} / ${words.length}`;
+    }
+
+    nextWordButton.addEventListener("click", () => {
+        checkAnswer(); // Сначала проверяем ответ
+        currentWordIndex++; // Переходим к следующему слову
+        startGame(); // Запускаем игру для следующего слова или завершаем игру
+    });
+
+    startGame(); // Начинаем игру с первого слова
+</script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/hobbies.css">
+    
+    <title>Hobby</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../index.html">HOME</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Hobby</h1>
+        <h2>31 words</h2>
+        <p>
+         <b>Важно:</b> API синтеза речи (озвучивание текста) поддерживается вашим браузером, но доступные голоса и языки зависят от настроек вашего браузера и операционной системы. Английский язык обычно поддерживается, но если вы слышите неправильное произношение, убедитесь, что у вас установлены соответствующие языковые пакеты и выбраны настройки озвучивания в браузере.  Качество озвучивания и доступные голоса могут различаться в разных браузерах.
+      </p>
+       <section class="words-section">
+          <div class="word-card">
+              <div class="word-text">
+                    <p class="word-title word" data-text="Reading">Reading 
+                     <span class="audio-icon" onclick="speakWord('Reading')">
+                        <img src="../img/audio.png" alt="">
+                     </span>
+                  </p> 
+                     
+                    <p class="transcription">[ˈriːdɪŋ]</p>
+                    <p class="translation">Чтение</p>
+               </div>
+               <div class="image-placeholder">
+                <img src="../img/hobby/reading.svg" alt="#">
+               </div>
+           </div>
+            <div class="word-card">
+              <div class="word-text">
+                    <p class="word-title word" data-text="Painting">Painting <span class="audio-icon" onclick="speakWord('Painting')"><img src="../img/audio.png" alt=""></span></p>
+                    <p class="transcription"> [ˈpeɪntɪŋ]</p>
+                    <p class="translation">Рисование</p>
+               </div>
+               <div class="image-placeholder">
+                <img src="../img/hobby/painting.svg" alt="#">
+               </div>
+           </div>
+            <div class="word-card">
+              <div class="word-text">
+                    <p class="word-title word" data-text="Gardening">Gardening <span class="audio-icon" onclick="speakWord('Gardening')"><img src="../img/audio.png" alt=""></span></p>
+                    <p class="transcription">[ˈɡɑː.dən.ɪŋ]</p>
+                    <p class="translation">Садоводство</p>
+               </div>
+               <div class="image-placeholder">
+                <img src="../img/hobby/gardening.svg" alt="#">
+               </div>
+           </div>
+              <div class="word-card">
+              <div class="word-text">
+                    <p class="word-title word" data-text="Knitting">Knitting <span class="audio-icon" onclick="speakWord('Knitting')"><img src="../img/audio.png" alt=""></span></p>
+                    <p class="transcription"> [ˈnɪtɪŋ]</p>
+                    <p class="translation">Вязание</p>
+               </div>
+               <div class="image-placeholder">
+                <img src="../img/hobby/knitting.svg" alt="#">
+               </div>
+           </div>
+           <div class="word-card">
+              <div class="word-text">
+                    <p class="word-title word" data-text="Photography">Photography <span class="audio-icon" onclick="speakWord('Photography')"><img src="../img/audio.png" alt=""></span></p>
+                    <p class="transcription"> [fəˈtɒɡrəfi]</p>
+                    <p class="translation">Фотографирование</p>
+               </div>
+               <div class="image-placeholder">
+                <img src="../img/hobby/photo.svg" alt="#">
+               </div>
+           </div>
+           <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Cooking">Cooking <span class="audio-icon" onclick="speakWord('Cooking')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈkʊkɪŋ] </p>
+                  <p class="translation">Кулинария</p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/cooking.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Bake">Bake <span class="audio-icon" onclick="speakWord('Bake')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription"> [beɪk] </p>
+                  <p class="translation">Печь</p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/baking.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Playing a musical instrument">Playing a musical instrument <span class="audio-icon" onclick="speakWord('Playing a musical instrument')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈpleɪɪŋ ə ˈmjuːzɪkᵊl ˈɪnstrəmənt]</p>
+                  <p class="translation">Игра на музыкальном инструменте</p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/playinst.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Listening to music">Listening to music <span class="audio-icon" onclick="speakWord('Listening to music')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈlɪsenɪŋ tuː ˈmjuːzɪk]</p>
+                  <p class="translation">Слушать музыку </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/listening.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Collecting stamps">Collecting stamps <span class="audio-icon" onclick="speakWord('Collecting stamps')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[kəˈlɛktɪŋ stæmps]</p>
+                  <p class="translation">Коллекционирование марок </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/mark.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Collecting coins">Collecting coins <span class="audio-icon" onclick="speakWord('Collecting coins')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[kəˈlɛktɪŋ kɔɪnz]</p>
+                  <p class="translation">Коллекционирование монет </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/coins.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Scrapbooking">Scrapbooking<span class="audio-icon" onclick="speakWord('Scrapbooking')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈskræpbʊkɪŋ]</p>
+                  <p class="translation">Создание альбома </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/alb.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Handworking">Handworking<span class="audio-icon" onclick="speakWord('Handworking')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈhændwɜːkɪŋ]</p>
+                  <p class="translation">Ручные изделия </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/handworking.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Blogging">Blogging<span class="audio-icon" onclick="speakWord('Blogging')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈblɒɡɪŋ]</p>
+                  <p class="translation">Ведение блога </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/blogging.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Learning new languages">Learning new languages <span class="audio-icon" onclick="speakWord('Learning new languages')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈlɜːnɪŋ njuː ˈlæŋɡwɪʤɪz]</p>
+                  <p class="translation">Изучение новых языков </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/lang.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Volunteering">Volunteering<span class="audio-icon" onclick="speakWord('Volunteering')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˌvɒlənˈtɪərɪŋ]</p>
+                  <p class="translation">Волонтерство </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/volute.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Playing board games">Playing board games <span class="audio-icon" onclick="speakWord('Playing board games')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈpleɪɪŋ bɔːd ɡeɪmz]</p>
+                  <p class="translation">Игра в настольные игры </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/boardgames.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Chess">Chess <span class="audio-icon" onclick="speakWord('Chess')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ʧɛs]</p>
+                  <p class="translation">Шахматы </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/chess.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Writing poetry">Writing poetry <span class="audio-icon" onclick="speakWord('Writing poetry')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈraɪtɪŋ ˈpəʊɪtri]</p>
+                  <p class="translation">Написание стихов </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/poetry.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Playing video games">Playing video games <span class="audio-icon" onclick="speakWord('Playing video games')"> <img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈpleɪɪŋ ˈvɪdiəʊ ɡeɪmz]</p>
+                  <p class="translation">Игра в видеоигры </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/videogames.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Meditation"> Meditation <span class="audio-icon" onclick="speakWord('Meditation')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˌmɛdɪˈteɪʃᵊn]</p>
+                  <p class="translation">Медитация </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/meditation.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Astronomy">Astronomy<span class="audio-icon" onclick="speakWord('Astronomy')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[əˈstrɒnəmi]</p>
+                  <p class="translation">Астрономия </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/astronomy.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Candle making">Candle making <span class="audio-icon" onclick="speakWord('Candle making')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈkændᵊl ˈmeɪkɪŋ]</p>
+                  <p class="translation">Изготовление свечей </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/candels.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Watching films or series ">Watching films or series <span class="audio-icon" onclick="speakWord('Watching films or series')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈwɒʧɪŋ fɪlmz ɔː ˈsɪəriːz]</p>
+                  <p class="translation">Просмотр фильмов или сериалов</p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/watching.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Joinery">Joinery<span class="audio-icon" onclick="speakWord('Joinery')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈʤɔɪnᵊri]</p>
+                  <p class="translation">Столярное дело </p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/joinery.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Dancing">Dancing <span class="audio-icon" onclick="speakWord('Dancing')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈdɑːnsɪŋ]</p>
+                  <p class="translation">Танцы</p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/dancing.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Do sport">Do sport<span class="audio-icon" onclick="speakWord('Do sport')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[duː spɔːt]</p>
+                  <p class="translation">Заниматься спортом</p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/sport.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Singing">Singing<span class="audio-icon" onclick="speakWord('Singing')"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[ˈsɪŋɪŋ]</p>
+                  <p class="translation">Пение</p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/singing.svg" alt="#">
+             </div>
+         </div>
+         <div class="word-card">
+            <div class="word-text">
+                  <p class="word-title word" data-text="Production of clay and ceramic products">Production of clay and ceramic products <span class="audio-icon"><img src="../img/audio.png" alt=""></span></p>
+                  <p class="transcription">[prəˈdʌkʃᵊn ɒv kleɪ ænd sɪˈræmɪk ˈprɒdʌkts]</p>
+                  <p class="translation">Изготовление изделий из глины и керамики</p>
+             </div>
+             <div class="image-placeholder">
+                <img src="../img/hobby/ceramic.svg" alt="#">
+             </div>
+         </div>
+       </section>
+        <section class="training">
+            <h2>Start training</h2>
+            <p class="choose-game">Choose the game</p>
+              <p class="training-text">Games help you memorize English words by using different channels of perception and increasing motivation, making learning more exciting and effective. Repeated repetition of words in the context of games contributes to their better assimilation.</p>
+            <div class="buttons">
+               <a href="../html/anagramHobby.html"><button>Anagram</button></a>
+               <a href="../html/meaningHobby.html"><button>Word meaning</button></a>
+                <a href="../html/drawingHobby.html"><button>Drawing</button></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Copyright © 2025</p>
+    </footer>
+    <script src="../js/index.js"></script>
+</body>
+</html>
