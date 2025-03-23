@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/hobbies.css">
+    <style>
+        /* Дополнительные стили для карточек и формы (можно перенести в hobbies.css) */
+        .custom-card-container {
+            display: flex;
+            flex-wrap: wrap; /* Чтобы карточки переносились на новую строку */
+            margin-top: 20px;
+        }
+        .custom-card {
+            width: 200px; /* Ширина карточки */
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            position: relative;
+            background-color: white;
+        }
+        .custom-card img {
+            max-width: 100%; /* Чтобы изображение не выходило за границы карточки */
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .custom-card p {
+            margin: 5px 0;
+        }
+
+        .delete-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1; /* Исправляет вертикальное выравнивание текста */
+            padding: 0;  /* Убирает внутренние отступы */
+            text-align: center; /* Выравнивает текст по центру */
+        }
+
+        #addCategoryForm {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: block; /* Форма отображается постоянно */
+        }
+        #addCategoryForm input[type="text"],
+        #addCategoryForm input[type="file"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #addCategoryForm button {
+            background-color: #b57d7d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #addCategoryForm button:hover {
+            background-color: #a35b5b;
+        }
+
+        .train-btn {
+            background-color: #b57d7d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 30px;
+        }
+
+        .train-btn:hover {
+            background-color: #a35b5b;
+        }
+    </style>
+    <title>Dictionary</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../index.html">HOME</a>
+        </nav>
+    </header>
+    <main>
+        <section class="custom-categories">
+        <h1>My words</h1>
+        <div id="addCategoryForm">
+            <input type="text" id="englishWord" placeholder="English word">
+            <input type="text" id="translation" placeholder="Translation">
+            <input type="file" id="imageUpload" accept="image/*">
+            <button id="saveCategoryButton">Add</button>
+        </div>
+        <a  href="ownGame.html"><button class="train-btn">Train words</button></a>
+        <div class="custom-card-container" id="customCardContainer">
+            <!-- Здесь будут отображаться карточки -->
+        </div>
+    </section>
+    </main>
+    <footer>
+        <p>Copyright © 2025</p>
+    </footer>
+<script src="../js/index.js"></script>
+</body>
+</html>
